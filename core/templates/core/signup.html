@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - FridgePal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-beige: #FBF3D5;
+            --text-dark-brown: #4E4334;
+            --accent-rose: #D6A99D;
+            --card-bg-sage: #D6DAC8;
+            --white: #FFFFFF;
+            --error-red: #e74c3c;
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Lato', sans-serif;
+        }
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-beige);
+            color: var(--text-dark-brown);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+            margin: 0;
+        }
+        .container {
+            background-color: var(--white);
+            padding: 2.5rem 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-dark-brown);
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        h1 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        p {
+            margin-bottom: 2rem;
+            color: #6a5c4c;
+        }
+        form {
+            text-align: left;
+        }
+        form p {
+            margin-bottom: 1.2rem;
+        }
+        form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        form input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid var(--card-bg-sage);
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 0.9rem 2rem;
+            margin-top: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            background-color: var(--accent-rose);
+            color: var(--white);
+        }
+        .bottom-link {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+        .bottom-link a {
+            color: var(--accent-rose);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        /* Styles for Django form errors */
+        .errorlist {
+            color: var(--error-red);
+            font-size: 0.9rem;
+            margin: -10px 0 10px 0;
+            list-style: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'homepage' %}" class="logo">FridgePal</a>
+        <h1>Create Your Account</h1>
+        <p>Join our community and start your journey to a zero-waste kitchen!</p>
+        
+        <form method="POST">
+            {% csrf_token %}
+            <!-- This will render the form fields as paragraphs -->
+            {{ form.as_p }}
+            <button type="submit" class="btn">Sign Up</button>
+        </form>
+
+        <div class="bottom-link">
+            <p>Already have an account? <a href="{% url 'login' %}">Log In</a></p>
+        </div>
+    </div>
+</body>
+</html>
+

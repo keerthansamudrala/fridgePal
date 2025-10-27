@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FridgePal - Your Smart Kitchen Companion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS Reset & Variables --- */
+        :root {
+            --bg-beige: #FBF3D5;
+            --text-dark-brown: #4E4334;
+            --accent-rose: #D6A99D;
+            --card-bg-sage: #D6DAC8;
+            --white: #FFFFFF;
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Lato', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-beige);
+            color: var(--text-dark-brown);
+            line-height: 1.6;
+        }
+
+        /* --- Utility Classes --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 6rem 0;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark-brown);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 3rem auto;
+            color: #6a5c4c;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-rose);
+            color: var(--white);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* --- Header & Navigation --- */
+        .main-header {
+            background: var(--bg-beige);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark-brown);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark-brown);
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-rose);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: var(--bg-beige);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 80px; /* Offset for fixed header */
+        }
+        
+        .hero-content h1 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+        
+        /* --- Features Section --- */
+        #features {
+            background-color: var(--card-bg-sage);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: left;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--accent-rose);
+        }
+        
+        .feature-card h3 {
+            font-family: var(--font-heading);
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- How It Works Section --- */
+        .how-it-works-grid {
+            display: flex;
+            justify-content: space-around;
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .step {
+            max-width: 300px;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-rose);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: var(--font-heading);
+            margin: 0 auto 1.5rem auto;
+            box-shadow: 0 4px 10px rgba(214, 169, 157, 0.5);
+        }
+
+        .step h3 {
+            font-family: var(--font-heading);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* --- CTA Section --- */
+        #cta {
+            background-color: var(--accent-rose);
+            color: var(--white);
+            padding: 5rem 0;
+        }
+        
+        #cta .section-title, #cta .section-subtitle {
+            color: var(--white);
+        }
+        
+        .btn-cta {
+             background-color: var(--white);
+             color: var(--accent-rose);
+        }
+
+        /* --- Footer --- */
+        .main-footer {
+            background: var(--text-dark-brown);
+            color: #ccc;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .main-footer .container p {
+            font-size: 0.9rem;
+        }
+
+        /* --- Responsive Design --- */
+        @media(max-width: 768px) {
+            .nav-links {
+                display: none; /* Simplification for this example. A real project would use a hamburger menu. */
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .how-it-works-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="main-header">
+        <nav class="container main-nav">
+            <a href="{% url 'homepage' %}" class="logo">FridgePal</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+            </ul>
+            <!-- This button now correctly points to the signup page -->
+            <a href="{% url 'signup' %}" class="btn btn-primary">Sign Up</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container hero-content">
+                <h1>Stop Wasting, Start Cooking.</h1>
+                <p>FridgePal turns your leftover ingredients into delicious meals. Reduce food waste, save money, and discover amazing recipes with your smart kitchen companion.</p>
+                <!-- This button now correctly points to the signup page -->
+                <a href="{% url 'signup' %}" class="btn btn-primary">Sign Up for Free</a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title">What is FridgePal?</h2>
+                <p class="section-subtitle">
+                    Every year, households throw away perfectly good food simply because they don't know what to do with it. FridgePal was created to solve this problem. We are a smart platform that helps you see the potential in your pantry, transforming random items into easy-to-follow, delicious recipes.
+                </p>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="section">
+            <div class="container">
+                <h2 class="section-title">Everything You Need in One Place</h2>
+                <p class="section-subtitle">Our features are designed to make your life easier and your kitchen smarter.</p>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🥕</div>
+                        <h3>Smart Pantry</h3>
+                        <p>Easily log the ingredients you have. Our smart system tracks what's in your fridge, so you don't have to.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🍲</div>
+                        <h3>Recipe Genius</h3>
+                        <p>Get instant recipe suggestions based on your available ingredients. No more searching for hours!</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Nutritional Facts</h3>
+                        <p>Understand the health benefits of your meals. Get detailed nutritional information for every recipe you discover.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="section">
+            <div class="container">
+                <h2 class="section-title">Get Started in 3 Simple Steps</h2>
+                <p class="section-subtitle">Cooking delicious meals from what you already have has never been easier.</p>
+                <div class="how-it-works-grid">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Add Your Ingredients</h3>
+                        <p>Quickly tell FridgePal what's in your kitchen. Scan a bill, or add items manually in seconds.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Discover Recipes</h3>
+                        <p>Our AI finds the best recipes you can make right now, prioritizing ingredients that are about to expire.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Cook & Enjoy</h3>
+                        <p>Follow our simple instructions and enjoy a delicious, home-cooked meal while reducing food waste.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section id="cta" class="section">
+            <div class="container">
+                <h2 class="section-title">Ready to Transform Your Kitchen?</h2>
+                <p class="section-subtitle">Join thousands of others who are saving money and fighting food waste, one meal at a time.</p>
+                <!-- This button now correctly points to the signup page -->
+                <a href="{% url 'signup' %}" class="btn btn-cta">Sign Up for Free</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2025 FridgePal. All rights reserved. Made with ❤️ in Hyderabad.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
+

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - FridgePal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-beige: #FBF3D5;
+            --text-dark-brown: #4E4334;
+            --accent-rose: #D6A99D;
+            --card-bg-sage: #D6DAC8;
+            --white: #FFFFFF;
+            --success-bg: #d4edda;
+            --success-text: #155724;
+            --error-bg: #f8d7da;
+            --error-text: #721c24;
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Lato', sans-serif;
+        }
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-beige);
+            color: var(--text-dark-brown);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+            margin: 0;
+        }
+        .container {
+            background-color: var(--white);
+            padding: 2.5rem 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-dark-brown);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        h1 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        p {
+            margin-bottom: 2rem;
+            color: #6a5c4c;
+        }
+        form {
+            text-align: left;
+        }
+        form p {
+            margin-bottom: 1.2rem;
+        }
+        form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        form input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid var(--card-bg-sage);
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 0.9rem 2rem;
+            margin-top: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            background-color: var(--accent-rose);
+            color: var(--white);
+        }
+        .bottom-link {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+        .bottom-link a {
+            color: var(--accent-rose);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        /* This is the styling for the messages framework */
+        .messages {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5rem;
+        }
+        .messages li {
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        .messages li.success {
+            background-color: var(--success-bg);
+            color: var(--success-text);
+        }
+        .messages li.error {
+            background-color: var(--error-bg);
+            color: var(--error-text);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'homepage' %}" class="logo">FridgePal</a>
+        <h1>Welcome Back!</h1>
+        <p>Log in to access your smart kitchen.</p>
+        
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn">Log In</button>
+        </form>
+
+        <div class="bottom-link">
+            <p>Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
+        </div>
+    </div>
+</body>
+</html>
+
