@@ -76,12 +76,8 @@ WSGI_APPLICATION = 'fridgepal_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'fridgepal',
-        'USER': 'fridgepaluser',
-        'PASSWORD': 'fridgepalpassword',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / "db.sqlite3",  # or just "db.sqlite3" if not using pathlib
     }
 }
 
