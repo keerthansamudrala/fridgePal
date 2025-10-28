@@ -13,9 +13,6 @@ auth = firebase.auth()
 db = firebase.database()
 storage = firebase.storage()
 
-
-
-
 # Homepage View
 def homepage(request):
     return render(request, 'core/index.html')
