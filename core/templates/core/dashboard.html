@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - FridgePal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-beige: #FBF3D5;
+            --text-dark-brown: #4E4334;
+            --accent-rose: #D6A99D;
+            --card-bg-sage: #D6DAC8;
+            --white: #FFFFFF;
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Lato', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--font-body);
+            background-color: var(--bg-beige);
+            color: var(--text-dark-brown);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: var(--card-bg-sage);
+            color: var(--text-dark-brown);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        header a {
+            background-color: var(--accent-rose);
+            color: var(--white);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: var(--font-heading);
+        }
+
+        main {
+            flex: 1;
+            padding: 2rem;
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .card {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .card h2 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            color: #6a5c4c;
+            margin-bottom: 1rem;
+        }
+
+        .upload-section {
+            background-color: var(--card-bg-sage);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        input[type="file"], input[type="text"] {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--accent-rose);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-family: var(--font-body);
+        }
+
+        button {
+            background-color: var(--accent-rose);
+            border: none;
+            color: var(--white);
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            font-family: var(--font-heading);
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: var(--white);
+            border-top: 2px solid var(--card-bg-sage);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>FridgePal Dashboard</h1>
+        <a href="{% url 'logout' %}">Logout</a>
+    </header>
+
+    <main>
+        <!-- Card 1: Add Groceries Manually -->
+        <div class="card">
+            <h2>Add Groceries</h2>
+            <p>Manually add the groceries you have at home.</p>
+            <div class="upload-section">
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="grocery_item" placeholder="e.g., Tomato, Bread, Milk">
+                    <button type="submit">Add Item</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Card 2: Upload Grocery Photo -->
+        <div class="card">
+            <h2>Upload Grocery Photo</h2>
+            <p>Upload an image of your groceries to detect items automatically.</p>
+            <div class="upload-section">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" name="grocery_image" accept="image/*">
+                    <button type="submit">Upload & Detect</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Card 3: Upload Grocery Bill -->
+        <div class="card">
+            <h2>Upload Grocery Bill</h2>
+            <p>Upload your grocery bill to extract food item names using OCR.</p>
+            <div class="upload-section">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" name="grocery_bill" accept="image/*,application/pdf">
+                    <button type="submit">Upload & Read</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Card 4: Suggested Recipes -->
+        <div class="card">
+            <h2>Suggested Recipes</h2>
+            <p>Based on your available groceries.</p>
+            <div class="upload-section">
+                {% if recipes %}
+                    <ul>
+                        {% for recipe in recipes %}
+                            <li><strong>{{ recipe.name }}</strong> — {{ recipe.steps }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No suggestions yet. Add groceries to get started!</p>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2025 FridgePal - Your Smart Kitchen Assistant
+    </footer>
+</body>
+</html>

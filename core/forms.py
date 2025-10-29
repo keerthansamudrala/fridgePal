@@ -4,8 +4,8 @@ from django.contrib.auth.forms import UserCreationForm
 
 class RegisterForm(UserCreationForm):
     """
-    A custom user registration form that extends Django's default UserCreationForm.
-    We add an email field and ensure it's required.
+    Custom user registration form extending Django's default UserCreationForm.
+    Adds an email field and validates uniqueness.
     """
     email = forms.EmailField(
         required=True,
@@ -14,11 +14,11 @@ class RegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ["username", "email", "password", "password2"]
+        fields = ["username", "email", "password1", "password2"]  # ✅ Corrected field names
 
     def clean_email(self):
         """
-        Custom validation to ensure the email address is unique.
+        Ensure the email address is unique across users.
         """
         email = self.cleaned_data.get('email')
         if User.objects.filter(email=email).exists():

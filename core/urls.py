@@ -15,6 +15,9 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
 
     # URL for the pantry page (the destination after a successful login)
-    path('pantry/', views.pantry_view, name='pantry'),
+    #path('pantry/', views.pantry_view, name='pantry'),
+
+    # URL for the dashboard page
+    path('dashboard/', views.dashboard_view, name='dashboard'),
 ]
 

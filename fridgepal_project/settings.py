@@ -26,7 +26,15 @@ SECRET_KEY = 'django-insecure-y1ui$sss-f0rlm&kgz5#v1ei6q_=b&07ad=l@h(k$i0j^y4kk%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '8000-firebase-fridgepal-1761584670007.cluster-euie3bjlbvhliv5fpqv5ofgi46.cloudworkstations.dev'
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://8000-firebase-fridgepal-1761584670007.cluster-euie3bjlbvhliv5fpqv5ofgi46.cloudworkstations.dev'
+]
 
 
 # Application definition
